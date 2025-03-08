@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario - Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        input, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: blue;
+        }
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="login-container">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="loginUsername" placeholder="Nombre de usuario">
+        <div class="password-container">
+            <input type="password" id="loginPassword" placeholder="Contraseña">
+            <span class="eye-icon" id="eyeLogin" onclick="togglePasswordVisibility('loginPassword', 'eyeLogin')">👁️</span>
+        </div>
+        <button onclick="login()">Ingresar</button>
+        <a href="#" onclick="showRegister()">¿No tienes una cuenta? Registrarse</a>
+    </div>
+    
+    <div class="container" id="register-container" style="display: none;">
+        <h2>Registrarse</h2>
+        <input type="text" id="registerUsername" placeholder="Nombre de usuario">
+        <div class="password-container">
+            <input type="password" id="registerPassword" placeholder="Contraseña">
+            <span class="eye-icon" id="eyeRegister" onclick="togglePasswordVisibility('registerPassword', 'eyeRegister')">👁️</span>
+        </div>
+        <button onclick="register()">Registrarse</button>
+        <a href="#" onclick="showLogin()">¿Ya tienes una cuenta? Iniciar sesión</a>
+    </div>
+    
+    <script>
+        function showRegister() {
+            document.getElementById("login-container").style.display = "none";
+            document.getElementById("register-container").style.display = "block";
+        }
+        
+        function showLogin() {
+            document.getElementById("register-container").style.display = "none";
+            document.getElementById("login-container").style.display = "block";
+        }
+        
+        function register() {
+            const username = document.getElementById("registerUsername").value;
+            const password = document.getElementById("registerPassword").value;
+            if (username && password) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+                alert("Registro exitoso, ahora inicia sesión");
+                window.location.href = "UsuarioBiblioteca.html";  
+            } else {
+                alert("Por favor, completa todos los campos");
+            }
+        }
+        
+        function login() {
+            const username = document.getElementById("loginUsername").value;
+            const password = document.getElementById("loginPassword").value;
+            const storedUsername = localStorage.getItem("username");
+            const storedPassword = localStorage.getItem("password");
+            if (username === storedUsername && password === storedPassword) {
+                localStorage.setItem("loggedInUser", username); 
+                window.location.href = "index.html";  // Redirigimos al inicio
+            } else {
+                alert("Usuario o contraseña incorrectos");
+            }
+        }
+
+        function togglePasswordVisibility(passwordFieldId, eyeIconId) {
+            const passwordField = document.getElementById(passwordFieldId);
+            const eyeIcon = document.getElementById(eyeIconId);
+            
+            if (passwordField.type === "password") {
+                passwordField.type = "text"; 
+                eyeIcon.textContent = "🙈"; 
+            } else {
+                passwordField.type = "password"; 
+                eyeIcon.textContent = "👁️"; 
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .havar {
+            background: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .havar a {
+            color: white;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        #user-menu {
+            display: none;
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: #444;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        #user-menu a {
+            color: white;
+            margin: 5px 0;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="havar">
+        <a href="LibrosBiblioteca.html"><h3>Libros</h3></a>
+        <a href="PrestamosBiblioteca.html"><h3>Préstamos</h3></a>
+        <a href="UsuarioBiblioteca.html"><h3>Usuario</h3></a>
+        
+        <a href="#" id="user-name" onclick="toggleUserMenu()"><h3 id="username-display">Usuario</h3></a>
+        <div id="user-menu">
+            <a href="#" onclick="logout()">Cerrar sesión</a>
+        </div>
+    </div>
+    
+    </div>
+    <div class="content">
+        <h1>Bienvenido a la Biblioteca</h1>
+        <p>Selecciona una opción del menú.</p>
+    </div>
+
+    <script>
+        function updateUsername() {
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            if (loggedInUser) {
+                document.getElementById("username-display").innerText = loggedInUser;
+                document.getElementById("user-name").style.display = "block"; 
+            } else {
+                document.getElementById("username-display").innerText = "Usuario";
+                document.getElementById("user-name").style.display = "block"; 
+            }
+        }
+
+        updateUsername();
+
+        function toggleUserMenu() {
+            const loggedInUser = localStorage.getItem("loggedInUser");
+            if (loggedInUser) {
+                const userMenu = document.getElementById("user-menu");
+                userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedInUser"); 
+            window.location.href = "UsuarioBiblioteca.html";
+        }
+    </script>
+</body>
+</html>
+
