@@ -9,16 +9,81 @@
             font-family: Arial, sans-serif;
             text-align: center;
         }
+
     </style>
 </head>
 <body>
     <h3>Solicitud de Préstamo</h3>
-    <label>Libro: <input type="text"></label><br>
-    <label>Cédula: <input type="text"></label><br>
-    <label>Ubicación: <input type="text"></label><br>
-    <label>Tiempo de préstamo: <input type="text"></label><br>
-    <button>Solicitar</button>
+    
+    <label>Libro: 
+        <select id="libroSelect"></select>
+    </label><br>
+    
+    <label>Ubicación: 
+        <select id="ubicacion" onchange="formatearCedula()">
+            <option value="Argentina">Argentina</option>
+            <option value="Bolivia">Bolivia</option>
+            <option value="Brasil">Brasil</option>
+            <option value="Chile">Chile</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Ecuador">Ecuador</option>
+            <option value="Paraguay">Paraguay</option>
+            <option value="Perú">Perú</option>
+            <option value="Uruguay">Uruguay</option>
+            <option value="Venezuela">Venezuela</option>
+        </select>
+    </label><br>
+
+    <label>Cédula: <input type="text" id="cedula" oninput="formatearCedula()"></label><br>
+    
+    <label>Tiempo de préstamo: 
+        <select>
+            <option value="3d">3 días</option>
+            <option value="1w">1 semana</option>
+            <option value="2w">2 semanas</option>
+            <option value="1m">1 mes</option>
+        </select>
+    </label><br>
+    
+    <button onclick="confirmarSolicitud()">Solicitar</button>
     <br><br>
     <a href="index.html">Volver</a>
+    
+    <script>
+        const librosDisponibles = ["El Principito", "Cien Años de Soledad", "Don Quijote de la Mancha", "A las Puertas de la Nada", "Drácula", "La Chica de Gris", "Objetos Malditos"];
+        const libroSelect = document.getElementById("libroSelect");
+        
+        librosDisponibles.forEach(libro => {
+            let option = document.createElement("option");
+            option.value = libro;
+            option.textContent = libro;
+            libroSelect.appendChild(option);
+        });
+        
+        function formatearCedula() {
+            let cedulaInput = document.getElementById("cedula");
+            let pais = document.getElementById("ubicacion").value;
+            let cedula = cedulaInput.value.replace(/\D/g, "");
+            
+            if (pais === "Uruguay") {
+                if (cedula.length > 8) cedula = cedula.slice(0, 8);
+                cedula = cedula.replace(/(\d{1,2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
+            } else if (pais === "Argentina") {
+                if (cedula.length > 11) cedula = cedula.slice(0, 11);
+                cedula = cedula.replace(/(\d{2})(\d{3})(\d{3})(\d{3})/, '$1.$2.$3.$4');
+            } else if (pais === "Brasil") {
+                if (cedula.length > 11) cedula = cedula.slice(0, 11);
+                cedula = cedula.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            } else if (pais === "Chile") {
+                if (cedula.length > 9) cedula = cedula.slice(0, 9);
+                cedula = cedula.replace(/(\d{1,2})(\d{3})(\d{3})(\d{1})/, '$1.$2.$3-$4');
+            }
+            cedulaInput.value = cedula;
+        }
+
+        function confirmarSolicitud() {
+            window.location.href = "confirmacion.html";
+        }
+    </script>
 </body>
 </html>

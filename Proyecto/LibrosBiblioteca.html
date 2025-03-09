@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,17 +9,194 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #FFEB3B, #FFCC00, #FFB300, #FFEB8F);
+        }
+
+        .havar {
+            background: linear-gradient(to right, #FFA500, #FF7F00);
+            padding: 5px 15px;
+            display: flex;
+            justify-content: flex-end;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: center;
+            border-bottom: 1px solid #000;
+            z-index: 1000;
+        }
+
+        .havar a {
+            color: white;
+            margin: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .havar a h3 {
+            color: white;
+            background: linear-gradient(to right, #FFA500, #FF7F00);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .content {
+            margin-top: 80px;
+            padding: 20px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .books-list {
+            width: 70%;
+        }
+
+        .filter-menu {
+            width: 25%;
+            background: linear-gradient(to right, #FFA500, #FF7F00);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        h3 {
+            color: rgb(255, 255, 255);
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: -2px 2px 4px black;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 12px 0;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background: linear-gradient(to right, #FF6F00, #FF8F00, #FFB300);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #FF5733, #FF6F00);
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #FF7F00;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 18px;
+            background-color: #FF7F00;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        a:hover {
+            background-color: #FF5733;
         }
     </style>
 </head>
+
 <body>
-    <h3>Libros Disponibles</h3>
-    <ul>
-        <li>El Principito</li>
-        <li>Cien Años de Soledad</li>
-        <li>Don Quijote de la Mancha</li>
-    </ul>
-    <br>
-    <a href="index.html">Volver</a>
+    <div class="havar">
+        <a href="index.html">
+            <h3>Volver</h3>
+        </a>
+    </div>
+
+    <div class="content">
+        <div class="books-list">
+            <h3>Libros Disponibles</h3>
+            <ul id="book-list">
+                <li><button onclick="location.href='A las Puertas de la Nada.html'">A las Puertas de la Nada</button>
+                </li>
+                <li><button onclick="location.href='Drácula.html'">Drácula</button></li>
+                <li><button onclick="location.href='La Chica Gris.html'">La Chica Gris</button></li>
+                <li><button onclick="location.href='Objetos Malditos.html'">Objetos Malditos</button></li>
+                <li><button onclick="location.href='El Principito.html'">El Principito</button></li>
+                <li><button onclick="location.href='Cien Años de Soledad.html'">Cien Años de Soledad</button></li>
+                <li><button onclick="location.href='Don Quijote de la Mancha.html'">Don Quijote de la Mancha</button>
+                </li>
+            </ul>
+        </div>
+
+        <div class="filter-menu">
+            <h3>Filtrar por Género</h3>
+            <select id="genre-select">
+                <option value="">Seleccione un Género</option>
+                <option value="terror">Terror</option>
+                <option value="aventura">Aventura</option>
+                <option value="infantil">Infantil</option>
+                <option value="clásico">Clásico</option>
+            </select>
+        </div>
+    </div>
+
+    <script>
+        const books = [
+            { title: "A las Puertas de la Nada", genre: "terror", link: "A las Puertas de la Nada.html" },
+            { title: "Drácula", genre: "terror", link: "Drácula.html" },
+            { title: "La Chica Gris", genre: "aventura", link: "La Chica Gris.html" },
+            { title: "Objetos Malditos", genre: "terror", link: "Objetos Malditos.html" },
+            { title: "El Principito", genre: "infantil", link: "El Principito.html" },
+            { title: "Cien Años de Soledad", genre: "clásico", link: "Cien Años de Soledad.html" },
+            { title: "Don Quijote de la Mancha", genre: "clásico", link: "Don Quijote de la Mancha.html" },
+        ];
+
+        function displayBooks(filteredBooks) {
+            const bookList = document.getElementById("book-list");
+            bookList.innerHTML = "";
+            filteredBooks.forEach(book => {
+                const li = document.createElement("li");
+                const button = document.createElement("button");
+                button.innerText = book.title;
+                button.onclick = function () {
+                    location.href = book.link;
+                };
+                li.appendChild(button);
+                bookList.appendChild(li);
+            });
+        }
+
+        document.getElementById("genre-select").addEventListener("change", function () {
+            const selectedGenre = this.value;
+            if (selectedGenre) {
+                const filteredBooks = books.filter(book => book.genre === selectedGenre);
+                displayBooks(filteredBooks);
+            } else {
+                displayBooks(books);
+            }
+        });
+
+        displayBooks(books);
+    </script>
+
 </body>
+
 </html>

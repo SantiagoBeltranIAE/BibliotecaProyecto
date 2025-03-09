@@ -3,27 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca</title>
+    <title>Biblioqueja</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #FFEB3B, #FFCC00, #FFB300, #FFEB8F); /* Degradado amarillo */
         }
         .havar {
-            background: #333;
-            padding: 10px;
+            background: linear-gradient(to right, #FFA500, #FF7F00); /* Degradado naranja */
+            padding: 2px 10px; /* Reducir aún más la altura de la barra */
             display: flex;
             justify-content: flex-end;
-            position: relative;
+            position: fixed; /* Fijamos la barra en la parte superior */
+            top: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: center; /* Centrado vertical */
+            border-bottom: 1px solid #000; /* Línea negra delgada para separar */
+            z-index: 1000; /* Asegura que la barra esté por encima del contenido */
         }
         .havar a {
             color: white;
-            margin: 10px;
+            margin: 5px;
             text-decoration: none;
             font-size: 18px;
         }
+        .havar a h3 {
+            color: white;
+            background: linear-gradient(to right, #FFA500, #FF7F00);
+            padding: 3px 8px; /* Ajuste al tamaño de la barra */
+            border-radius: 5px;
+        }
+        .biblioqueja-logo {
+            display: flex;
+            align-items: center;
+            position: absolute;
+            left: 10px;
+            font-size: 20px;
+            color: white;
+        }
+        .carousel-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            margin-top: 60px; /* Para dar espacio debajo de la barra fija */
+        }
+        .carousel-images {
+            display: flex;
+            animation: slide 15s linear infinite; /* Aumenté la velocidad de la animación */
+        }
+        .carousel-images img {
+            width: 300px;
+            height: 450px; /* Ajusta la altura según el tamaño de las imágenes */
+            margin: 0 15px;
+            border-radius: 10px;
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
         .content {
-            margin-top: 20px;
+            margin-top: 100px; /* Aumento el margen superior para que no quede tapado */
+            padding: 20px;
+            border-radius: 10px;
+            box-sizing: border-box;
         }
         #user-menu {
             display: none;
@@ -43,9 +90,12 @@
 </head>
 <body>
     <div class="havar">
+        <div class="biblioqueja-logo">
+            <h1>Biblioqueja 🤡</h1> 
+        </div>
         <a href="LibrosBiblioteca.html"><h3>Libros</h3></a>
         <a href="PrestamosBiblioteca.html"><h3>Préstamos</h3></a>
-        <a href="UsuarioBiblioteca.html"><h3>Usuario</h3></a>
+        <a href="UsuarioBiblioteca.html"><h3>Cuenta</h3></a>
         
         <a href="#" id="user-name" onclick="toggleUserMenu()"><h3 id="username-display">Usuario</h3></a>
         <div id="user-menu">
@@ -53,10 +103,28 @@
         </div>
     </div>
     
-    </div>
     <div class="content">
-        <h1>Bienvenido a la Biblioteca</h1>
-        <p>Selecciona una opción del menú.</p>
+        <h1>Bienvenido a la Biblioqueja</h1>
+        
+
+        <!-- Carrusel de portadas de libros -->
+        <div class="carousel-container">
+            <div class="carousel-images">
+                <img src="/ImagenesPortada/don quijote.jpeg" alt="Portada libro 1">
+                <img src="/ImagenesPortada/el-principito-portada.png" alt="Portada libro 2">
+                <img src="/ImagenesPortada/a las puertas de lka nada.jpg" alt="Portada libro 3">
+                <img src="/ImagenesPortada/drácula.jpeg" alt="Portada libro 4">
+                <img src="/ImagenesPortada/la chica gris.jpeg" alt="Portada libro 5">
+                <img src="/ImagenesPortada/objetos malditos.jpeg" alt="Portada libro 6">
+                <!-- Repetimos las imágenes para crear un ciclo infinito -->
+                <img src="/ImagenesPortada/don quijote.jpeg" alt="Portada libro 1">
+                <img src="/ImagenesPortada/el-principito-portada.png" alt="Portada libro 2">
+                <img src="/ImagenesPortada/a las puertas de lka nada.jpg" alt="Portada libro 3">
+                <img src="/ImagenesPortada/drácula.jpeg" alt="Portada libro 4">
+                <img src="/ImagenesPortada/la chica gris.jpeg" alt="Portada libro 5">
+                <img src="/ImagenesPortada/objetos malditos.jpeg" alt="Portada libro 6">
+            </div>
+        </div>
     </div>
 
     <script>
@@ -88,4 +156,3 @@
     </script>
 </body>
 </html>
-
